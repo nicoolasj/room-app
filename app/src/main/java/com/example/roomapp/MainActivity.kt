@@ -3,6 +3,8 @@ package com.example.roomapp
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.roomapp.adapter.ItemAdapter
@@ -37,6 +39,16 @@ class MainActivity : AppCompatActivity(), ItemAdapter.OnItemClickListener {
         binding.button.setOnClickListener {
             itemViewModel.insertItem(Item(0, "${binding.editText.text}"))
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.deleteAll) itemViewModel.deleteAllItems()
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onItemClick(position: Int) {
