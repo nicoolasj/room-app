@@ -14,8 +14,8 @@ class ItemAdapter(private val listener: OnItemClickListener) :
     private var itemData = emptyList<Item>()
 
     interface OnItemClickListener {
-        fun onItemClick()
-        fun onItemLongClick()
+        fun onItemClick(position: Int)
+        fun onItemLongClick(position: Int)
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view),
@@ -30,14 +30,14 @@ class ItemAdapter(private val listener: OnItemClickListener) :
         override fun onClick(v: View?) {
             val position = absoluteAdapterPosition
             if (position != RecyclerView.NO_POSITION) {
-                listener.onItemClick()
+                listener.onItemClick(position)
             }
         }
 
         override fun onLongClick(v: View?): Boolean {
             val position = absoluteAdapterPosition
             if (position != RecyclerView.NO_POSITION) {
-                listener.onItemLongClick()
+                listener.onItemLongClick(position)
             }
             return true
         }
