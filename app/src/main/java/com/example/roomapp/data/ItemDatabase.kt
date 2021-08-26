@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.example.roomapp.model.Item
 
 @Database(entities = [Item::class], version = 1)
-abstract class ItemDatabase : RoomDatabase(){
+abstract class ItemDatabase : RoomDatabase() {
 
     abstract fun itemDao(): ItemDao
 

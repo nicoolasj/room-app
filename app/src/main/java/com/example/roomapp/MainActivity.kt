@@ -1,10 +1,10 @@
 package com.example.roomapp
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.roomapp.adapter.ItemAdapter
@@ -31,10 +31,13 @@ class MainActivity : AppCompatActivity(), ItemAdapter.OnItemClickListener {
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
 
-        itemViewModel.readAllData.observe(this, {
-            adapter.itemList(it)
-            Log.d(TAG, "$it")
-        })
+        itemViewModel.readAllData.observe(
+            this,
+            {
+                adapter.itemList(it)
+                Log.d(TAG, "$it")
+            }
+        )
 
         binding.button.setOnClickListener {
             itemViewModel.insertItem(Item(0, "${binding.editText.text}"))

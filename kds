@@ -1,0 +1,13 @@
+[33m0e13571[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m create options menu
+[33m685fa67[m recyclerview implementation with room database and fix for adapter
+[33m8b5c770[m delete unnecessary viewmodel factory class
+[33m1c457b6[m create viewmodel factory class for ItemViewModel
+[33m70a5305[m main activity layout setup
+[33m4621e51[m create ItemAdapter adapter class
+[33m842a398[m create ItemViewModel class
+[33mcba79ba[m create ItemRepository class
+[33ma89bbb8[m create ItemDatabase abstract class
+[33m7e6b8e3[m create DAO interface for Item
+[33mdf69793[m[33m ([m[1;31morigin/master[m[33m)[m create entity class Item
+[33m8344541[m add gradle dependencies
+[33maf8ec0c[m initial project setup
