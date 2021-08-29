@@ -1,5 +1,6 @@
-package com.example.roomapp.data
+package com.example.roomapp.repository
 
+import com.example.roomapp.data.ItemDao
 import com.example.roomapp.model.Item
 
 class ItemRepository(private val itemDao: ItemDao) {
