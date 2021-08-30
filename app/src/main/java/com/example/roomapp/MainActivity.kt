@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity(), ItemAdapter.OnItemClickListener {
 
         itemViewModel = ViewModelProvider(this).get(ItemViewModel::class.java)
 
-        val adapter = ItemAdapter(this)
+        val adapter = ItemAdapter(this, itemViewModel)
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
 
@@ -57,10 +57,5 @@ class MainActivity : AppCompatActivity(), ItemAdapter.OnItemClickListener {
     override fun onItemClick(position: Int) {
         val item = itemViewModel.readAllData.value!![position]
         itemViewModel.updateItem(Item(item.id, "${binding.editText.text}"))
-    }
-
-    override fun onItemLongClick(position: Int) {
-        val item = itemViewModel.readAllData.value!![position]
-        itemViewModel.deleteItem(item)
     }
 }

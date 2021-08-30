@@ -3,29 +3,32 @@ package com.example.roomapp.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.roomapp.R
 import com.example.roomapp.model.Item
+import com.example.roomapp.viewmodel.ItemViewModel
 
-class ItemAdapter(private val listener: OnItemClickListener) :
+class ItemAdapter(private val listener: OnItemClickListener, private val viewModel: ItemViewModel) :
     RecyclerView.Adapter<ItemAdapter.ViewHolder>() {
 
     private var itemData = emptyList<Item>()
 
     interface OnItemClickListener {
         fun onItemClick(position: Int)
-        fun onItemLongClick(position: Int)
     }
 
     inner class ViewHolder(view: View) :
         RecyclerView.ViewHolder(view),
-        View.OnClickListener,
-        View.OnLongClickListener {
+        View.OnClickListener {
+
+        val textView: TextView = view.findViewById(R.id.textView)
+        val imageView: ImageView = view.findViewById(R.id.imageView)
 
         init {
             view.setOnClickListener(this)
-            view.setOnLongClickListener(this)
+            imageView.setOnClickListener(this)
         }
 
         override fun onClick(v: View?) {
@@ -34,16 +37,6 @@ class ItemAdapter(private val listener: OnItemClickListener) :
                 listener.onItemClick(position)
             }
         }
-
-        override fun onLongClick(v: View?): Boolean {
-            val position = absoluteAdapterPosition
-            if (position != RecyclerView.NO_POSITION) {
-                listener.onItemLongClick(position)
-            }
-            return true
-        }
-
-        val textView: TextView = view.findViewById(R.id.textView)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -54,6 +47,9 @@ class ItemAdapter(private val listener: OnItemClickListener) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.textView.text = itemData[position].item
+        holder.imageView.setOnClickListener {
+            viewModel.deleteItem(itemData[position])
+        }
     }
 
     override fun getItemCount(): Int = itemData.size
