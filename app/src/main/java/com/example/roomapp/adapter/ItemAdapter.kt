@@ -1,5 +1,6 @@
 package com.example.roomapp.adapter
 
+import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -54,13 +55,13 @@ class ItemAdapter(private val listener: OnItemClickListener, private val viewMod
         }
         holder.checkBox.isChecked = itemData[position].completed
         holder.checkBox.setOnClickListener {
-            viewModel.updateItem(
-                Item(
-                    itemData[position].id,
-                    itemData[position].item,
-                    holder.checkBox.isChecked
-                )
-            )
+            if (holder.checkBox.isChecked) {
+                holder.textView.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+                updateItem(holder, position)
+            } else {
+                holder.textView.paintFlags = 0
+                updateItem(holder, position)
+            }
         }
     }
 
@@ -69,5 +70,15 @@ class ItemAdapter(private val listener: OnItemClickListener, private val viewMod
     fun itemList(itemData: List<Item>) {
         this.itemData = itemData
         notifyDataSetChanged()
+    }
+
+    private fun updateItem(holder: ViewHolder, position: Int) {
+        viewModel.updateItem(
+            Item(
+                itemData[position].id,
+                itemData[position].item,
+                holder.checkBox.isChecked
+            )
+        )
     }
 }
