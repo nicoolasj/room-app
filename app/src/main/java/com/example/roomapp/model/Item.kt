@@ -10,5 +10,7 @@ data class Item(
     @ColumnInfo(name = "id")
     val id: Int,
     @ColumnInfo(name = "item")
-    var item: String
+    var item: String,
+    @ColumnInfo(name = "completed")
+    var completed: Boolean
 )
