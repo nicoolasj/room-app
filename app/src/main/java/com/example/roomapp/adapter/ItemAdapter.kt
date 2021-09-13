@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.roomapp.R
 import com.example.roomapp.model.Item
 import com.example.roomapp.viewmodel.ItemViewModel
+import com.google.android.material.checkbox.MaterialCheckBox
 
 class ItemAdapter(private val listener: OnItemClickListener, private val viewModel: ItemViewModel) :
     RecyclerView.Adapter<ItemAdapter.ViewHolder>() {
@@ -25,6 +26,7 @@ class ItemAdapter(private val listener: OnItemClickListener, private val viewMod
 
         val textView: TextView = view.findViewById(R.id.textView)
         val imageView: ImageView = view.findViewById(R.id.imageView)
+        val checkBox: MaterialCheckBox = view.findViewById(R.id.checkBox)
 
         init {
             view.setOnClickListener(this)
@@ -49,6 +51,16 @@ class ItemAdapter(private val listener: OnItemClickListener, private val viewMod
         holder.textView.text = itemData[position].item
         holder.imageView.setOnClickListener {
             viewModel.deleteItem(itemData[position])
+        }
+        holder.checkBox.isChecked = itemData[position].completed
+        holder.checkBox.setOnClickListener {
+            viewModel.updateItem(
+                Item(
+                    itemData[position].id,
+                    itemData[position].item,
+                    holder.checkBox.isChecked
+                )
+            )
         }
     }
 
