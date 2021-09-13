@@ -29,6 +29,8 @@ class ItemAdapter(private val listener: OnItemClickListener, private val viewMod
         val imageView: ImageView = view.findViewById(R.id.imageView)
         val checkBox: MaterialCheckBox = view.findViewById(R.id.checkBox)
 
+
+
         init {
             view.setOnClickListener(this)
             imageView.setOnClickListener(this)
@@ -55,14 +57,9 @@ class ItemAdapter(private val listener: OnItemClickListener, private val viewMod
         }
         holder.checkBox.isChecked = itemData[position].completed
         holder.checkBox.setOnClickListener {
-            if (holder.checkBox.isChecked) {
-                holder.textView.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
-                updateItem(holder, position)
-            } else {
-                holder.textView.paintFlags = 0
-                updateItem(holder, position)
-            }
+            updateItem(holder, position)
         }
+        setStrikethrough(holder.textView, holder.checkBox)
     }
 
     override fun getItemCount(): Int = itemData.size
@@ -70,6 +67,14 @@ class ItemAdapter(private val listener: OnItemClickListener, private val viewMod
     fun itemList(itemData: List<Item>) {
         this.itemData = itemData
         notifyDataSetChanged()
+    }
+
+    private fun setStrikethrough(textView: TextView, checkBox: MaterialCheckBox) {
+        if (checkBox.isChecked) {
+            textView.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+        } else {
+            textView.paintFlags = 0
+        }
     }
 
     private fun updateItem(holder: ViewHolder, position: Int) {
