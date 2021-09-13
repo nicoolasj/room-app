@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity(), ItemAdapter.OnItemClickListener {
         )
 
         binding.button.setOnClickListener {
-            itemViewModel.insertItem(Item(0, "${binding.editText.text}"))
+            itemViewModel.insertItem(Item(0, "${binding.editText.text}", false))
         }
     }
 
@@ -56,6 +56,6 @@ class MainActivity : AppCompatActivity(), ItemAdapter.OnItemClickListener {
 
     override fun onItemClick(position: Int) {
         val item = itemViewModel.readAllData.value!![position]
-        itemViewModel.updateItem(Item(item.id, "${binding.editText.text}"))
+        itemViewModel.updateItem(Item(item.id, "${binding.editText.text}", item.completed))
     }
 }
